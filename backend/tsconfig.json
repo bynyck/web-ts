@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
     "module": "nodenext",
-    "target": "esnext",
-    "types": [],
+    "moduleResolution": "NodeNext",
+    "target": "es2022",
+    "types": ["node"],
+    "rootDir": "./src",
+    "outDir": "./dist",
     "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "strict": true,
-    "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
