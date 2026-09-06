@@ -1,6 +1,7 @@
 import express from "express";
 import type { Request, Response } from "express";
 import cors from "cors";
+import { usuarioRouter } from "./routes/usuarios-routes.js";
 
 export default function createApp() {
     const app = express();
@@ -11,6 +12,8 @@ export default function createApp() {
     app.get("/", (req: Request, res: Response) => {
         res.send("Hello World");
     })
+
+    app.use("/usuarios",usuarioRouter);
 
     return app;
 }
