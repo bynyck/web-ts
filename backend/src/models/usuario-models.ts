@@ -4,3 +4,5 @@ export interface Usuario{
     email: string,
     telefone: string
 }
+
+export type UsuarioCadastro = Pick<Usuario, "nome" | "email" | "telefone">

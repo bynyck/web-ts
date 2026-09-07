@@ -5,3 +5,9 @@ export interface RespostaListarUsuariosService {
     mensagem: string,
     usuarios: Usuario[]
 }
+
+export interface RespostaCadastrarUsuarioService {
+    sucesso: boolean,
+    mensagem: string,
+    usuario: Usuario
+}
