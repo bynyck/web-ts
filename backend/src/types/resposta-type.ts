@@ -11,3 +11,5 @@ export interface RespostaCadastrarUsuarioService {
     mensagem: string,
     usuario: Usuario
 }
+
+export type RespostaDeletarUsuarioService = RespostaCadastrarUsuarioService
