@@ -11,7 +11,7 @@ export async function listarUsuariosRepository(): Promise<Usuario[]> {
 
 export async function buscarUsuarioPeloEmailRepository(email: string): Promise<Usuario | null> {
     const resposta = await pool.query<Usuario>(`
-        SELECT id,nome,email,telefone from usuarios
+        SELECT id,nome,email,telefone FROM usuarios
         WHERE email = $1    
     `, [email]);
 
@@ -31,6 +31,12 @@ export async function cadastrarUsuarioRepository(dados: UsuarioCadastro): Promis
         email,
         telefone
     `, [nome,email,telefone])
+
+    return resposta.rows[0];
+}
+
+export async function deletarUsuarioRepository(id: number): Promise<Usuario> {
+    const resposta = await pool.query("DELETE FROM usuarios WHERE id = $1", [id]);
 
     return resposta.rows[0];
 }
