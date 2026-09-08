@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", async () => {
         try {
-            const nome = document.getElementById("nome").value;
-            const email = document.getElementById("email").value;
-            const telefone = document.getElementById("telefone").value;
+            const nome = document.getElementById("nome").value.trim();
+            const email = document.getElementById("email").value.trim().toLowerCase();
+            const telefone = document.getElementById("telefone").value.trim();
 
-            if(!nome || !email || !telefone || telefone.length < 11) {
+            if(!nome || nome.length < 3 || !email || !telefone || telefone.length < 11) {
                 alert("Preencha todos os campos");
                 return;
             }
