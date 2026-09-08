@@ -35,6 +35,32 @@ export async function cadastrarUsuarioRepository(dados: UsuarioCadastro): Promis
     return resposta.rows[0];
 }
 
+export async function atualizarUsuarioRepository(id: Number, dados: UsuarioCadastro): Promise<Usuario> {
+
+    const { nome, email, telefone } = dados;
+
+    const resposta = await pool.query<Usuario>(`
+        UPDATE usuarios
+        SET nome = $1, 
+            email = $2, 
+            telefone = $3
+        WHERE id = $4
+        RETURNING
+            id,
+            nome,
+            email,
+            telefone
+    `,[nome,email,telefone,id])
+    
+    const usuario = resposta.rows[0];
+    
+    if(!usuario) {
+        throw new Error("Falha ao atualizar usuario");
+    }
+
+    return usuario
+}
+
 export async function deletarUsuarioRepository(id: number): Promise<Usuario> {
     const resposta = await pool.query("DELETE FROM usuarios WHERE id = $1", [id]);
 
