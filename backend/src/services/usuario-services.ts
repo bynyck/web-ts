@@ -1,6 +1,6 @@
 import type { Usuario, UsuarioCadastro } from "../models/usuario-models.js";
-import { buscarUsuarioPeloEmailRepository, cadastrarUsuarioRepository, deletarUsuarioRepository, listarUsuariosRepository } from "../repository/usuario-repository.js";
-import type { RespostaCadastrarUsuarioService, RespostaDeletarUsuarioService, RespostaListarUsuariosService } from "../types/resposta-type.js";
+import { listarUsuariosRepository, buscarUsuarioPeloEmailRepository, cadastrarUsuarioRepository, atualizarUsuarioRepository, deletarUsuarioRepository } from "../repository/usuario-repository.js";
+import type { RespostaAtualizarUsuarioService, RespostaCadastrarUsuarioService, RespostaDeletarUsuarioService, RespostaListarUsuariosService } from "../types/resposta-type.js";
 
 export async function listarUsuariosService(): Promise<RespostaListarUsuariosService> {
     const usuarios = await listarUsuariosRepository();
@@ -39,11 +39,27 @@ export async function cadastrarUsuarioService(dados: UsuarioCadastro): Promise<R
 
 }
 
+export async function atualizarUsuarioService(id: number, dados: UsuarioCadastro): Promise<RespostaAtualizarUsuarioService> {
+
+    const usuario = await atualizarUsuarioRepository(id, dados);
+
+    if(!usuario) {
+        throw new Error("Falha ao atualizar usuário");
+    }
+
+    return {
+        sucesso: true,
+        mensagem: "Usuário atualizado com sucesso",
+        usuario
+    }
+
+}
+
 export async function deletarUsuarioService(id: number): Promise<RespostaDeletarUsuarioService> {
 
     const usuario = await deletarUsuarioRepository(id);
 
-    if(usuario) {
+    if(!usuario) {
         throw new Error("Falha ao deletar usuário");
     }
 

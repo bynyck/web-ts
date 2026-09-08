@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { listarUsuariosService, cadastrarUsuarioService, deletarUsuarioService } from "../services/usuario-services.js"
+import { listarUsuariosService, cadastrarUsuarioService, atualizarUsuarioService, deletarUsuarioService } from "../services/usuario-services.js"
 import type {UsuarioCadastro } from "../models/usuario-models.js";
 
 export async function listarUsuariosController(_req: Request, res: Response): Promise<Response> {
@@ -18,6 +18,16 @@ export async function cadastrarUsuarioController(req: Request, res: Response): P
 
     return res.status(201).json(resposta);
 
+}
+
+export async function atualizarUsuarioController(req: Request, res: Response): Promise<Response> {
+
+    const { id } = req.params;
+    const dados = req.body;
+    
+    const resposta = await atualizarUsuarioService(Number(id), dados);
+
+    return res.status(200).json(resposta);
 }
 
 export async function deletarUsuarioController(req: Request, res: Response): Promise<Response> {

@@ -12,4 +12,6 @@ export interface RespostaCadastrarUsuarioService {
     usuario: Usuario
 }
 
-export type RespostaDeletarUsuarioService = RespostaCadastrarUsuarioService
+export type RespostaDeletarUsuarioService = RespostaCadastrarUsuarioService;
+
+export type RespostaAtualizarUsuarioService = RespostaCadastrarUsuarioService;
