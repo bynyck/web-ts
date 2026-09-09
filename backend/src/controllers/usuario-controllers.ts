@@ -12,7 +12,7 @@ export async function listarUsuariosController(_req: Request, res: Response): Pr
 
 export async function cadastrarUsuarioController(req: Request, res: Response): Promise<Response> {
 
-    const dados: UsuarioCadastro = req.body;
+    const dados: UsuarioCadastro = req.dadosValidados?.body as UsuarioCadastro;
 
     const resposta = await cadastrarUsuarioService(dados);
 
@@ -22,8 +22,8 @@ export async function cadastrarUsuarioController(req: Request, res: Response): P
 
 export async function atualizarUsuarioController(req: Request, res: Response): Promise<Response> {
 
-    const { id } = req.params;
-    const dados = req.body;
+    const { id } = req.dadosValidados?.params as {id: number};
+    const dados: UsuarioCadastro = req.dadosValidados?.body as UsuarioCadastro
     
     const resposta = await atualizarUsuarioService(Number(id), dados);
 
@@ -32,7 +32,7 @@ export async function atualizarUsuarioController(req: Request, res: Response): P
 
 export async function deletarUsuarioController(req: Request, res: Response): Promise<Response> {
 
-    const { id } = req.params;
+    const { id } = req.dadosValidados?.params as {id: number};
 
     const resposta = await deletarUsuarioService(Number(id));
 
