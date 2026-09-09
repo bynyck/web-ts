@@ -35,7 +35,7 @@ export async function cadastrarUsuarioRepository(dados: UsuarioCadastro): Promis
     return resposta.rows[0];
 }
 
-export async function atualizarUsuarioRepository(id: Number, dados: UsuarioCadastro): Promise<Usuario> {
+export async function atualizarUsuarioRepository(id: number, dados: UsuarioCadastro): Promise<Usuario | null> {
 
     const { nome, email, telefone } = dados;
 
@@ -52,17 +52,20 @@ export async function atualizarUsuarioRepository(id: Number, dados: UsuarioCadas
             telefone
     `,[nome,email,telefone,id])
     
-    const usuario = resposta.rows[0];
+    return resposta.rows[0] ?? null;
     
-    if(!usuario) {
-        throw new Error("Falha ao atualizar usuario");
-    }
-
-    return usuario
 }
 
-export async function deletarUsuarioRepository(id: number): Promise<Usuario> {
-    const resposta = await pool.query("DELETE FROM usuarios WHERE id = $1", [id]);
+export async function deletarUsuarioRepository(id: number): Promise<Usuario | null> {
+    const resposta = await pool.query<Usuario>(`
+        DELETE FROM usuarios 
+        WHERE id = $1
+        RETURNING
+            id,
+            nome,
+            email,
+            telefone
+    `, [id]);
 
-    return resposta.rows[0];
+    return resposta.rows[0] ?? null;
 }

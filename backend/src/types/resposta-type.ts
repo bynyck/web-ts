@@ -12,6 +12,11 @@ export interface RespostaCadastrarUsuarioService {
     usuario: Usuario
 }
 
+export interface ErrosFormatados {
+    campo: string
+    mensagem: string
+}
+
 export type RespostaDeletarUsuarioService = RespostaCadastrarUsuarioService;
 
 export type RespostaAtualizarUsuarioService = RespostaCadastrarUsuarioService;
